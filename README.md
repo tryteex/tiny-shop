@@ -135,4 +135,4 @@ Tiny-Shop is licensed under the MIT license. Please see the 'LICENSE' file for m
 ## Community
 
 Our project is in its infancy, if you want to join us, welcome!  
-https://discord.gg/g5BbxCWJ
+https://discord.gg/E8vZhjUDg8
