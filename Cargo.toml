@@ -1,7 +1,7 @@
 [package]
 name = "tiny-shop"
 authors = ["Volodymyr Zamkovyi <v.zamkovyi@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 description = "tiny-shop is a async CRM in Rust language."
