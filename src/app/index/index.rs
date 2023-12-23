@@ -1,15 +1,10 @@
-use tiny_web::sys::action::{Answer, Action};
+use tiny_web::sys::action::{Answer, Action, Redirect};
 
 pub async fn index(this: &mut Action) -> Answer {
-    this.load("head", "index", "main", "head", None).await;
-    this.load("index", "index", "main", "index", None).await;
-    this.load("foot", "index", "main", "foot", None).await;
-    this.render("index")
+    this.response.redirect = Some(Redirect { url: "/admin".to_owned(), permanently: false });
+    Answer::None
 }
 
-pub async fn not_found(this: &mut Action) -> Answer {
-    this.load("head", "index", "main", "head", None).await;
-    this.load("index", "index", "main", "not_found", None).await;
-    this.load("foot", "index", "main", "foot", None).await;
-    this.render("index")
+pub async fn not_found(_: &mut Action) -> Answer {
+    Answer::String("not_found".to_owned())
 }

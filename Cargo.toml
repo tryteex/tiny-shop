@@ -1,7 +1,7 @@
 [package]
 name = "tiny-shop"
 authors = ["Volodymyr Zamkovyi <v.zamkovyi@gmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 description = "tiny-shop is a async CRM in Rust language."
@@ -9,11 +9,11 @@ keywords = ["crm", "e-shop", "tiny-web", "async"]
 repository = "https://github.com/tryteex/tiny-shop"
 
 [dependencies]
-tiny-web-macro="0.1"
-tiny-web="0.4"
+tiny-web-macro="0.1.3"
+tiny-web="0.4.11"
 
 [profile.release]
-strip = true
+strip = "symbols"
 lto = "fat"
 codegen-units = 1
 panic = "abort"

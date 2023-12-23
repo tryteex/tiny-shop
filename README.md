@@ -45,10 +45,16 @@ You need to prepare a `tiny.conf` file in your web server. To do this, take the 
 
 ### Running
 
-Run the project with cargo:
+Run the project with cargo in the background :
 
 ```bash
 cargo run start
+```
+
+Run the project with cargo :
+
+```bash
+cargo run go
 ```
 
 ### Configuring nginx
@@ -63,64 +69,61 @@ events {
 }
 
 http {
-  include mime.types;
-  default_type application/octet-stream;
+    error_log /home/test/log/error.log;
 
-  sendfile on;
-  client_max_body_size 2M;
+    include mime.types;
+    default_type application/octet-stream;
 
-  gzip on;
-  proxy_buffering off;
-
-  upstream fcgi_backend {
-    server 127.0.0.1:12500;
-    keepalive 32;
-  }
-
-  server {
-    listen       80;
-    server_name  fcgi.domain.ua;
-    # The path to the root directory,
-    # on a Windows server it might look like this
-    # root c:/web/tiny/tiny-shop/www;
-    root /home/tiny/tiny-shop/www;
-
-    location ~* ^.+\.(?:css|cur|js|jpg|gif|ico|png|xml|otf|ttf|eot|woff|woff2|svg)$ {
-      break;
+    sendfile on;
+    client_max_body_size 2M;
+    
+    gzip on;
+    proxy_buffering off;
+    
+    upstream fcgi_backend {
+        server 127.0.0.1:12500;
+        keepalive 32;
     }
 
-    # It is forbidden to read ini or html directly
-    location ~\.(ini|html)$ {
-      rewrite ^(.*)$ //$1/ last;
-    }
+    server {
+        listen 443 ssl;
+        http2 on;
+        ssl_certificate /home/test/cert/certificate.crt;
+        ssl_certificate_key /home/test/cert/privateKey.key;
 
-    # Redirect for page index
-    location ~ ^/$ {
-      rewrite ^(.*)$ // last;
-    }
+        server_name fcgi.test.ua;
+        root /home/test/www;
+          
+        location ~* ^.+\.(?:css|cur|js|jpg|gif|ico|png|xml|otf|ttf|eot|woff|woff2|svg|map)$ {
+            break;
+        }
 
-    # Sending a web request to CRM.
-    # All requests that start with two slashes "//" at the beginning 
-    # are redirected to tine-web engines.
-    location ~ ^// {
-      fastcgi_connect_timeout 1;
-      fastcgi_next_upstream timeout;
-      fastcgi_pass fcgi_backend;
-      fastcgi_read_timeout 5d;
-      fastcgi_param REDIRECT_URL $request_uri;
-      include fastcgi_params;
-      fastcgi_keep_conn on;
-      fastcgi_buffering off;
-      fastcgi_socket_keepalive on;
-      fastcgi_ignore_client_abort on;
-      break;
-    }
+        location ~\.(ini|html)$ {
+            rewrite ^(.*)$ //$1/ last;
+        }
 
-    # ReWrite module
-    if (!-f $request_filename) {
-      rewrite ^(.*)$ //$1 last;
+        location ~ ^/$ {
+            rewrite ^(.*)$ // last;
+        }
+        
+        location ~ ^// {
+            fastcgi_connect_timeout 1;
+            fastcgi_next_upstream timeout;
+            fastcgi_pass fcgi_backend;
+            fastcgi_read_timeout 5d;
+            fastcgi_param REDIRECT_URL $request_uri;
+            include fastcgi_params;
+            fastcgi_keep_conn on;
+            fastcgi_buffering off;
+            fastcgi_socket_keepalive on;
+            fastcgi_ignore_client_abort on;
+            break;
+        }
+        
+        if (!-f $request_filename) {
+            rewrite ^(.*)$ //$1 last;
+        }
     }
-  }
 }
 ```
 
