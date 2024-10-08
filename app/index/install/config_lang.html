@@ -1,0 +1,98 @@
+<div class="p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-4 dark:bg-gray-800">
+  <h3 class="mb-2 text-base font-semibold dark:text-white">{{ config_lang_title }}</h3>
+  <div class="mb-2">
+    <div class="flex flex-col">
+      <div class="overflow-y-auto">
+        <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden shadow">
+            <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+              <thead class="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th scope="col" class="p-2"></th>
+                  <th scope="col" class="p-2 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">{{ config_lang_name }}</th>
+                  <th scope="col" class="p-2 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">{{ config_lang_actions }}</th>
+                </tr>
+              </thead>
+              <tbody id="lang-table" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">                          
+                {% for lang in lang_list %}
+                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <td class="w-4 p-2">
+                    <div class="flex items-center">
+                      <input code="{{ lang.code|raw }}" id="config-lang-{{ lang.code|raw }}" aria-describedby="config-lang-{{ lang.code|raw }}" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"  autocomplete="off" {% if lang.set %} checked {% endif %}>
+                      <label for="config-lang-{{ lang.code|raw }}" class="sr-only">{{ lang.name }}</label>
+                    </div>
+                  </td>
+                  <td class="p-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ lang.name }}</td>
+                  <td class="w-4 p-2 space-x-2 whitespace-nowrap">
+                    <button type="button" class="lang-up text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                      <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"/></svg>
+                    </button>
+                    <button type="button" class="lang-down text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                      <svg class="lang-down w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4"/></svg>
+                    </button>
+                  </td>
+                </tr>   
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+<script>
+(function() {  
+  function moveRow(row, direction) {
+    const tbody = document.getElementById('lang-table');
+    if (direction === 'up' && row.previousElementSibling && row.previousElementSibling.querySelector('input[type="checkbox"]').checked) {
+      tbody.insertBefore(row, row.previousElementSibling);
+    } else if (direction === 'down' && row.nextElementSibling && row.nextElementSibling.querySelector('input[type="checkbox"]').checked) {
+      tbody.insertBefore(row.nextElementSibling, row);
+    }
+  }
+  function updateRowPosition(checkbox) {
+    const row = checkbox.closest('tr');
+    const tbody = document.getElementById('lang-table');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    if (checkbox.checked) {
+      const lastCheckedRow = rows.reverse().find(r => r.querySelector('input[type="checkbox"]').checked && r !== row);
+      if (lastCheckedRow) {
+        tbody.insertBefore(row, lastCheckedRow.nextElementSibling);
+      } else {
+        tbody.insertBefore(row, tbody.firstChild);
+      }
+    } else {
+      const firstUncheckedRow = rows.find(r => !r.querySelector('input[type="checkbox"]').checked && r !== row);
+      if (firstUncheckedRow) {
+        tbody.insertBefore(row, firstUncheckedRow);
+      } else {
+        tbody.appendChild(row);
+      }
+    }
+  }
+  document.getElementById('lang-table').addEventListener('click', function (e) {
+    let el = e.target;
+    let levelsUp = 0
+    while (el && el.tagName !== 'BUTTON' && levelsUp < 4) {
+      el = el.parentElement;
+      levelsUp += 1;
+    }
+    console.log(el);
+    if (el.type == 'button') {
+      const row = el.closest('tr');
+      const checkbox = row.querySelector('input[type="checkbox"]');
+      if (checkbox.checked) {
+        if (el.classList.contains('lang-up')) {
+          moveRow(row, 'up');
+        } else if (el.classList.contains('lang-down')) {
+          moveRow(row, 'down');
+        }
+      }
+    } else if (e.target.type === 'checkbox') {
+      updateRowPosition(e.target);
+    }  
+  });
+})();
+</script>

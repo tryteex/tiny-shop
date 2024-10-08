@@ -1,0 +1,158 @@
+<div class="p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-4 dark:bg-gray-800">
+  <h3 class="mb-2 text-base font-semibold dark:text-white">{{ config_db_title }}</h3>
+  <div class="mb-2">
+    <div class="flex flex-col">
+      <div class="overflow-y-auto">
+        <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden shadow">
+            <div class="mb-2 mx-1">
+              <label for="db-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_type }}</label>
+              <input type="text" name="db-type" id="db-type" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ config_db_type_value }}" readonly>
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-host" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_host }}</label>
+              <input type="text" name="db-host" id="db-host" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-port" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_port}}</label>
+              <input type="number" min="1" max="65235" name="db-port" id="db-port" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_name }}</label>
+              <input type="text" name="db-name" id="db-name" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_user }}</label>
+              <input type="text" name="db-user" id="db-user" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-pwd" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_db_pwd }}</label>
+              <input type="password" name="db-pwd" id="db-pwd" autocomplete="off" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="mb-2 mx-1">
+              <label for="db-ssl" class="relative flex items-center cursor-pointer">
+                <input type="checkbox" id="db-ssl" autocomplete="off">
+                <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ db_ssl }}</span>  
+              </label>
+            </div>
+            <div class="mb-2 mx-1">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ db_max_text }}</label>
+              <label for="db-max-auto" class="relative flex items-center cursor-pointer">
+                <input type="radio" name="db-max-auto" id="db-max-auto" autocomplete="off" checked value="auto">
+                <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ db_max_auto }}</span>  
+              </label>
+              <div class="flex items-center space-x-4">
+                <div class="min-w-0">
+                  <label for="db-max-manual" class="relative flex items-center cursor-pointer">
+                    <input type="radio" name="db-max-auto" id="db-max-manual" autocomplete="off" value="manual">
+                    <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ db_max_manual }}</span>  
+                  </label>
+                </div>
+                <div class="flex-1 inline-flex items-center min-w-16">
+                  <input type="number" min="1" max="128" name="db-max" id="db-max" autocomplete="off" value="{{ db_max_value }}" disabled class="cursor-not-allowed shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                </div>
+              </div>
+            </div>
+            <div class="mb-2 mx-1">
+              <button id="db-check" class="mt-4 ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ config_db_check }}</button>
+            </div>
+            <div class="mb-2 mx-1 text-base font-normal hidden" id="db-check-status">
+              <svg id="db-check-spinner" aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+              </svg>
+              <div id="db-check-status-text" class="inline text-gray-500 dark:text-gray-400"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function() {  
+  const db_max_auto = document.getElementById('db-max-auto');
+  const db_max_manual = document.getElementById('db-max-manual');
+  const db_max = document.getElementById('db-max');
+  const db_check = document.getElementById('db-check');
+  const db_status = document.getElementById('db-check-status');
+  const db_spinner = document.getElementById('db-check-spinner');
+  const db_text = document.getElementById('db-check-status-text');
+
+  db_check.addEventListener('click', function() {
+    db_check.setAttribute('disabled', 'disabled');
+    db_check.classList.add('cursor-not-allowed');
+    db_text.innerHTML = "{{ config_db_checking }}";
+    db_text.classList.remove("text-red-500", "dark:text-red-400", "text-green-500", "dark:text-green-400");
+
+    db_status.classList.remove('hidden');
+    db_spinner.classList.remove('hidden');
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/index/install/db_check', true);
+    xhr.timeout = 2000;
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        try {
+          let answer = JSON.parse(xhr.responseText);
+          if (answer.status === 'ok') {
+            db_text.innerHTML = answer.text;
+            db_text.classList.add("text-green-500", "dark:text-green-400");
+          } else if (answer.status === 'err') {
+            db_text.innerHTML = answer.text;
+            db_text.classList.add("text-red-500", "dark:text-red-400");
+          } else {
+            db_text.innerHTML = '{{ config_db_check_err_json }}';
+            db_text.classList.add("text-red-500", "dark:text-red-400");
+          }
+        } catch (e) {
+          db_text.innerHTML = "{{ config_db_check_err_answer }}";
+          db_text.classList.add("text-red-500", "dark:text-red-400");
+        }
+      } else {
+        db_text.innerHTML = "{{ config_db_check_err_server }}: " + xhr.status + " " + xhr.statusText;
+        db_text.classList.add("text-red-500", "dark:text-red-400");
+      }
+    };
+    xhr.onerror = function() {
+        db_text.innerHTML = "{{ config_db_check_err_network }}";
+        db_text.classList.add("text-red-500", "dark:text-red-400");
+      };
+    xhr.ontimeout = function() {
+      db_text.innerHTML = '{{ config_db_check_timeout }}';
+      db_text.classList.add("text-red-500", "dark:text-red-400");
+    };
+    xhr.onloadend = function() {
+      db_spinner.classList.add('hidden');
+      db_check.removeAttribute('disabled');
+      db_check.classList.remove('cursor-not-allowed');
+    };
+    let data = {
+        db_host: document.getElementById('db-host').value,
+        db_port: document.getElementById('db-port').value,
+        db_name: document.getElementById('db-name').value,
+        db_user: document.getElementById('db-user').value,
+        db_pwd: document.getElementById('db-pwd').value,
+        db_ssl: document.getElementById('db-ssl').checked,
+        db_max: document.getElementById('db-max-auto').checked ? "auto" : (document.getElementById('db-max').value ? document.getElementById('db-max').value : "auto")
+    };
+    xhr.send(JSON.stringify(data));
+  });
+
+  db_max_auto.addEventListener('change', function() {
+    if (db_max_auto.checked) {
+      db_max.setAttribute('disabled', 'disabled');
+      db_max.classList.add('cursor-not-allowed');
+    }
+  });
+  db_max_manual.addEventListener('change', function() {
+    if (db_max_manual.checked) {
+      db_max.removeAttribute('disabled');
+      db_max.classList.remove('cursor-not-allowed');
+    }
+  });
+})();
+</script>

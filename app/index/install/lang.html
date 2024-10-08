@@ -1,0 +1,27 @@
+<button type="button" data-dropdown-toggle="language-dropdown" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+  <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 19 3.5-9 3.5 9m-6.125-2h5.25M3 7h7m0 0h2m-2 0c0 1.63-.793 3.926-2.239 5.655M7.5 6.818V5m.261 7.655C6.79 13.82 5.521 14.725 4 15m3.761-2.345L5 10m2.761 2.655L10.2 15"/></svg>    
+</button>
+<div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700" id="language-dropdown">
+  <ul id="lang-list" class=" py-1" role="none">
+    {% for lang in langs %}
+    <li>
+      <a href="/index/index/lang_set?id={{ lang.id|raw }}" class="lang-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+        <div class="inline-flex items-center">{{ lang.name }}</div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+<script>
+(function() {
+  var links = document.querySelectorAll('#lang-list .lang-item');
+  function handleLinkClick(e) {
+    e.preventDefault();
+    let url = window.location.href.substring(window.location.origin.length);
+    window.location.href = this.href + '&location=' + encodeURIComponent(url);
+  }
+  for(var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', handleLinkClick);
+  }
+})();
+</script>

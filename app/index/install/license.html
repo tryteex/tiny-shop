@@ -1,0 +1,34 @@
+{{ head|raw }}
+<div class="grid grid-cols-1 px-4 pt-6">
+  <div class="mb-4 col-span-full bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 p-6 dark:bg-gray-800">
+    <h1 class="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">{{ license }}</h1>
+    <div class="mt-8 format lg:format-lg format-blue dark:format-invert w-max-unset">{{ license_text|raw }}</div>
+    <div class="mt-8">
+      <label for="accept-license" class="relative flex items-center mx-4 cursor-pointer">
+        <input type="checkbox" id="accept-license" autocomplete="off">
+        <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ license_agree }}</span>  
+      </label>
+    </div>  
+    <a href="/index/install/config">
+      <button id="accept-license-next" type="button" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-not-allowed" disabled>{{ next }}</button>
+    </a>
+  </div>
+</div>
+<script>
+(function() {
+  const accept = document.getElementById('accept-license');
+  accept.addEventListener('change', function() {
+    let button = document.getElementById('accept-license-next');
+    if (this.checked) {
+      button.removeAttribute('disabled');
+      button.classList.remove('cursor-not-allowed');
+      button.parentElement.href = "/index/install/config?license=accept";
+    } else {
+      button.setAttribute('disabled', 'disabled');
+      button.classList.add('cursor-not-allowed');
+      button.parentElement.href = "/index/install/config";
+    }
+  })
+})();
+</script>
+{{ foot|raw }}

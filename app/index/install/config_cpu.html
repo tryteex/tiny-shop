@@ -1,0 +1,51 @@
+<div class="p-2 mb-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-4 dark:bg-gray-800">
+  <h3 class="mb-2 text-base font-semibold dark:text-white">{{ config_cpu_title }}</h3>
+  <div class="mb-2 mx-1">
+    <div class="flex flex-col max-h-96">
+      <div class="overflow-y-auto">
+        <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden shadow">
+            <div class="mb-2 mx-1">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ config_cpu_text }}</label>
+              <label for="cpu-max-auto" class="relative flex items-center cursor-pointer">
+                <input type="radio" name="cpu-max-auto" id="cpu-max-auto" autocomplete="off" checked value="auto">
+                <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ cpu_max_auto }}</span>  
+              </label>
+              <div class="flex items-center space-x-4">
+                <div class="min-w-0">
+                  <label for="cpu-max-manual" class="relative flex items-center cursor-pointer">
+                    <input type="radio" name="cpu-max-auto" id="cpu-max-manual" autocomplete="off" value="manual">
+                    <span class="ml-2 text-base font-medium text-gray-500 dark:text-gray-400">{{ cpu_max_manual }}</span>  
+                  </label>
+                </div>
+                <div class="flex-1 inline-flex items-center min-w-16">
+                  <input type="number" min="1" max="128" name="cpu-max" id="cpu-max" autocomplete="off" value="{{ cpu_max_value }}" disabled class="cursor-not-allowed shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+<script>
+(function() {
+    const cpu_max_auto = document.getElementById('cpu-max-auto');
+    const cpu_max_manual = document.getElementById('cpu-max-manual');
+    const cpu_max = document.getElementById('cpu-max');
+
+    cpu_max_auto.addEventListener('change', function() {
+      if (cpu_max_auto.checked) {
+        cpu_max.setAttribute('disabled', 'disabled');
+        cpu_max.classList.add('cursor-not-allowed');
+      }
+    });
+    cpu_max_manual.addEventListener('change', function() {
+      if (cpu_max_manual.checked) {
+        cpu_max.removeAttribute('disabled');
+        cpu_max.classList.remove('cursor-not-allowed');
+      }
+    });
+})();
+</script>

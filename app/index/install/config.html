@@ -1,0 +1,106 @@
+{{ head|raw }}
+<div class="px-2 pt-6 sm:px-4">
+  <div class="mb-4 col-span-full p-2">
+    <h1 class="text-base font-semibold text-gray-900 sm:text-lg dark:text-white mb-4">{{ config|raw }}</h1>
+    <div class="grid gap-2 sm:gap-4 sm:px-2 mb-2 grid-cols-1 xl:grid-cols-2">
+      {{ config_lang|raw }}
+      {{ config_db|raw }}
+      {{ config_log|raw }}
+      {{ config_session|raw }}
+      {{ config_salt|raw }}
+      {{ config_cpu|raw }}
+      {{ config_user|raw }}
+      <div class="flex flex-col">
+        <div class="items-center mb-2">
+          <button id="config-save" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ config_save }}</button>
+        </div>
+        <div class="text-base font-normal items-center hidden" id="config-status">
+          <svg id="config-spinner" aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+          </svg>
+          <div id="config-status-text" class="inline text-gray-500 dark:text-gray-400"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  const save = document.getElementById('config-save');
+  const status = document.getElementById('config-status');
+  const spinner = document.getElementById('config-spinner');
+  const text = document.getElementById('config-status-text');
+
+  save.addEventListener('click', function() {
+    save.setAttribute('disabled', 'disabled');
+    save.classList.add('cursor-not-allowed');
+    text.innerHTML = "{{ config_saving }}";
+    text.classList.remove("text-red-500", "dark:text-red-400", "text-green-500", "dark:text-green-400");
+
+    status.classList.remove('hidden');
+    spinner.classList.remove('hidden');
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/index/install/config_save', true);
+    xhr.timeout = 5000;
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        try {
+          let answer = JSON.parse(xhr.responseText);
+          if (answer.status === 'ok') {
+            location.href = "/index/install/success";
+          } else if (answer.status === 'err') {
+            text.innerHTML = answer.text;
+            text.classList.add("text-red-500", "dark:text-red-400");
+          } else {
+            text.innerHTML = '{{ config_err_json }}';
+            text.classList.add("text-red-500", "dark:text-red-400");
+          }
+        } catch (e) {
+          text.innerHTML = "{{ config_err_answer }}";
+          text.classList.add("text-red-500", "dark:text-red-400");
+        }
+      } else {
+        text.innerHTML = "{{ config_err_server }}: " + xhr.status + " " + xhr.statusText;
+        text.classList.add("text-red-500", "dark:text-red-400");
+      }
+    };
+    xhr.onerror = function() {
+      text.innerHTML = "{{ config_err_network }}";
+      text.classList.add("text-red-500", "dark:text-red-400");
+    };
+    xhr.ontimeout = function() {
+      text.innerHTML = '{{ config_timeout }}';
+      text.classList.add("text-red-500", "dark:text-red-400");
+    };
+    xhr.onloadend = function() {
+      spinner.classList.add('hidden');
+      save.removeAttribute('disabled');
+      save.classList.remove('cursor-not-allowed');
+    };
+
+    let data = {
+      lang: [...document.querySelectorAll('#lang-table tr input[type="checkbox"]:checked[code]')].map(checkbox => checkbox.getAttribute('code')),
+      db: {
+        host: document.getElementById('db-host').value,
+        port: document.getElementById('db-port').value,
+        name: document.getElementById('db-name').value,
+        user: document.getElementById('db-user').value,
+        pwd: document.getElementById('db-pwd').value,
+        ssl: document.getElementById('db-ssl').checked,
+        max: document.getElementById('db-max-auto').checked ? "auto" : (document.getElementById('db-max').value ? document.getElementById('db-max').value : "auto"),
+      },
+      log: document.getElementById('log-file').value,
+      session: document.getElementById('config-session').value,
+      salt: document.getElementById('config-salt').value,
+      cpu: document.getElementById('cpu-max-auto').checked ? "auto" : (document.getElementById('cpu-max').value ? document.getElementById('cpu-max').value : "auto"),
+    };
+    xhr.send(JSON.stringify(data));
+  });
+})();
+</script>
+{{ foot|raw }}

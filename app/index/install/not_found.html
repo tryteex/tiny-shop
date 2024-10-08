@@ -1,0 +1,17 @@
+{{ head|raw }}
+<div class="grid grid-cols-1 px-4 pt-6">
+  <div class="mb-4 col-span-full bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 p-6 dark:bg-gray-800 flex flex-col items-center justify-center">
+    <div class="block md:max-w-lg">
+      <img src="/img/authentication/404.svg" alt="astronaut image">
+    </div>
+    <div class="text-center xl:max-w-4xl">
+      <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">{{ not_found }}</h1>
+      <p class="mb-5 text-base font-normal text-gray-500 md:text-lg dark:text-gray-400">{{ not_found_text|raw }}</p>
+      <a href="/" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-3 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+        <svg class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+        {{ go_back_home }}
+      </a>
+    </div>
+  </div>
+</div>
+{{ foot|raw }}

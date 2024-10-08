@@ -1,0 +1,83 @@
+welcome = "Welcome to Tiny-shop!"
+welcome_text = """<p>We are pleased to welcome you on your journey to setting up <b>Tiny-shop</b>!</p>
+<p>Our online store is designed with a focus on speed, security, and scalability, making it ideal for large projects.<br>
+Built on the Rust programming language, it is one of the fastest solutions on the market for e-commerce. With the ability to handle over 1 million products and support for PostgreSQL 16+, <b>Tiny-shop</b> will help you take your business to the next level.</p>
+<p>The store supports multilingualism, allowing you to serve customers in different countries with maximum comfort.</p>
+<p><b>Tiny-shop</b> is an open-source project that you can download from our <a href="https://github.com/tryteex/Tiny-shop" target="_blank">GitHub</a> repository. We actively maintain the project and invite everyone to join the community through our <a href="https://discord.com/channels/1116858532491448332/1116858533061869742" target="_blank">Discord channel</a>, where you can interact with other users and developers.</p>
+<p>Additionally, we support plugins and hooks that allow you to integrate additional features from third-party developers. These modules can be both free and paid, enabling you to extend the store's functionality according to your needs.</p>
+<p>The project exists thanks to the support of our community. If you like <b>Tiny-shop</b> and want to contribute to its further development, please consider making a donation.<br>
+Your contributions will help us maintain the project, add new features, and improve it for all users. You can make a donation through <a href="https://github.com/sponsors/tryteex/" target="_blank">GitHub Sponsors</a>.</p>
+<p>Click "Next" to start setting up your store!</p>"""
+next = "Next"
+license = "License Agreement"
+license_text = """<p>Before proceeding with the <b>Tiny-shop</b> installation process, please read our license terms. The project is open source and is available for download from the <a href="https://github.com/tryteex/tiny-shop" target="_blank">GitHub</a> repository.</p >
+<p>The <b>Tiny-shop</b> project is distributed under the <a href="https://github.com/tryteex/tiny-shop/blob/main/LICENSE" target="_blank">MIT< /a> (about the license <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT</a>), which gives you the freedom to use, modify and distribute the code as long as you comply with the terms of the license.</p>
+</p>Basic terms of the license:
+ <ul>
+ <li>You are free to use this code in your own projects and modify it to suit your needs.</li>
+ <li>If you redistribute the modified code, you must retain the original copyright and license terms.</li>
+ <li>The software is provided "as is", without any guarantees, so the authors are not responsible for possible damages or losses that may occur in the process of using it.</li>
+ </ul>
+</p>
+<p>Please accept the license terms to continue with the installation.</p>
+"""
+license_agree = "I agree to the license terms"
+license_not_accept = "Unfortunately, you have not accepted the license terms, so <b>Tiny-shop</b> cannot be installed."
+not_found = "Page not found"
+not_found_text = "Oops! Looks like you followed a bad link. If you think this is a problem with us, please tell us."
+go_back_home = "Go back home"
+home = "Home"
+toggle_dark = "Toggle dark mode"
+settings = "Settings"
+config = "Tiny-shop configuration"
+config_save = "Save"
+config_lang_title = "Setting languages"
+config_lang_name = "Language"
+config_lang_actions = "Actions"
+config_log_title = "Log file"
+config_log_text = "The path to the log file"
+config_db_title = "Database config"
+config_cpu_title = "CPU Async config"
+config_cpu_text = "Number of CPUs + 2 is recommended"
+cpu_max_auto = "Automatic"
+cpu_max_manual = "Manual"
+config_session_title = "Session key"
+config_session_text = "Session key name for the browser"
+config_salt_title = "Salt config"
+config_salt_text = "Enter the secret string"
+config_db_host = "Host"
+config_db_port = "Port"
+config_db_name = "Name"
+config_db_user = "User"
+config_db_pwd = "Pwd"
+db_ssl = "SSL required"
+db_max_text = "Number of connections"
+db_max_auto = "Automatic"
+db_max_manual = "Manual"
+config_db_check = "Check"
+config_db_checking = "Checking ..."
+config_db_check_err_server = "Server error"
+config_db_check_timeout = "Request timed out"
+config_db_check_err_network = "Network error occurred"
+config_db_check_err_answer = "Error parsing JSON response"
+config_db_check_err_json = "Unknown status in response"
+config_db_err = "Invalid request parameters"
+config_db_ok = "Connection successfully established, time on server"
+config_db_error = "Error establishing connection"
+config_db_type = "Database type"
+config_saving = "Checking and storing..."
+config_err_server = "Server error"
+config_err_network = "Network error occurred"
+config_timeout = "Request timed out"
+config_err_answer = "Error parsing JSON response"
+config_err_json = "Unknown status in response"
+config_save_err = "Invalid request parameters"
+config_save_cpu_err = "Invalid value in \"CPU Async config\". Can be either \"Automatic\" or a number"
+config_save_log_err = "Invalid value in \"Log file\". Cannot be empty"
+config_save_salt_err = "Invalid value in \"Salt config\". Cannot be empty"
+config_save_session_err = "Invalid value in \"Session key\". Cannot be empty"
+config_save_lang_err = "No language selected"
+config_save_file_err = "Failed to write conf file"
+config_save_install_sql_err = "Failed to get the sql request to initialize the database"
+success = "Installation completed successfully!"
+success_text = "<p>Congratulations!</p><p>You have successfully completed the installation of <b>Tiny-shop</b>.</p><p>Now you can go to the main page and start working with your site.</p>"

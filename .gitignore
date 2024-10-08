@@ -1,4 +1,9 @@
 /target
-tiny.conf
+tiny.toml
+tiny.toml.new
 Cargo.lock
 tiny.log
+/ssl/certificate.crt
+/ssl/privateKey.key
+/www/access.log
+/www/error.log
